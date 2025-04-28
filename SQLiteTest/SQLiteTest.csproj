@@ -152,6 +152,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\20250428100855_InitialCreate.cs" />
+    <Compile Include="Migrations\20250428100855_InitialCreate.designer.cs">
+      <DependentUpon>20250428100855_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\WfDbContextModelSnapshot.cs" />
     <Compile Include="Models\WfDbContext.cs" />
     <Compile Include="Models\Workflow.cs" />
     <Compile Include="Program.cs" />
@@ -169,4 +174,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\runtimes\win-x86" ".\runtimes\win-x86\"  /D /S /E
+xcopy "$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\runtimes\win-x64" ".\runtimes\win-x64"\  /D /S /E
+xcopy "$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\runtimes\win-arm" ".\runtimes\win-arm\"  /D /S /E</PostBuildEvent>
+  </PropertyGroup>
 </Project>
