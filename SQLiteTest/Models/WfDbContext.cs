@@ -20,6 +20,10 @@ namespace SQLiteTest.Models
             string filePath = System.IO.Path.Combine(modulePath, "../../../workflow.sqlite3");
             string connectionString = new SqliteConnectionStringBuilder { DataSource = filePath }.ToString();
             optionBuilder.UseSqlite(new SqliteConnection(connectionString));
+
+            // 遅延ロードを有効にする。
+            // ナビゲーションプロパティは全て virtual にする必要が生じる。
+            optionBuilder.UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
