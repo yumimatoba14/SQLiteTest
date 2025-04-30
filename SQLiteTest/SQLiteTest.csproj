@@ -156,7 +156,12 @@
     <Compile Include="Migrations\20250428100855_InitialCreate.designer.cs">
       <DependentUpon>20250428100855_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20250428110355_AddTask.cs" />
+    <Compile Include="Migrations\20250428110355_AddTask.designer.cs">
+      <DependentUpon>20250428110355_AddTask.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\WfDbContextModelSnapshot.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\WfDbContext.cs" />
     <Compile Include="Models\Workflow.cs" />
     <Compile Include="Program.cs" />
