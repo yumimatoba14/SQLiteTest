@@ -171,6 +171,10 @@
     <Compile Include="Migrations\20250430080232_AddTaskRelation.designer.cs">
       <DependentUpon>20250430080232_AddTaskRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20250430161145_AddUniqunessToTaskKey.cs" />
+    <Compile Include="Migrations\20250430161145_AddUniqunessToTaskKey.designer.cs">
+      <DependentUpon>20250430161145_AddUniqunessToTaskKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\WfDbContextModelSnapshot.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskRelation.cs" />

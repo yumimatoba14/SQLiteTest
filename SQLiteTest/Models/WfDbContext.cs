@@ -34,7 +34,7 @@ namespace SQLiteTest.Models
             modelBuilder.Entity<Task>(t =>
             {
                 t.HasKey(x => new { x.WorkflowId, x.SubId });
-                t.HasIndex(x => new { x.WorkflowId, x.SubId });
+                t.HasIndex(x => new { x.WorkflowId, x.SubId }).IsUnique();
             });
 
             // 以下はなくても動く
