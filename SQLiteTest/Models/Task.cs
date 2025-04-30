@@ -11,6 +11,12 @@ namespace SQLiteTest.Models
     [Table("Tasks")]
     public class Task
     {
+        public Task()
+        {
+            PrevTaskRelations = new List<TaskRelation>();
+            NextTaskRelations = new List<TaskRelation>();
+        }
+
         [Key]
         public int WorkflowId { get; set; }
 
@@ -26,5 +32,7 @@ namespace SQLiteTest.Models
         public string Remark { get; set; }
 
         public virtual Workflow Workflow { get; set; }
+        public virtual ICollection<TaskRelation> PrevTaskRelations { get; }
+        public virtual ICollection<TaskRelation> NextTaskRelations { get; }
     }
 }

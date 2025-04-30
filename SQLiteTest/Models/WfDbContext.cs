@@ -11,6 +11,8 @@ namespace SQLiteTest.Models
 
         public DbSet<Task> Tasks { get; internal set; }
 
+        public DbSet<TaskRelation> TaskRelations { get; internal set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
             // プロジェクト直下にデータベースファイルを配置するため、モジュールのパス起点のフルパスを用いる。
@@ -43,6 +45,16 @@ namespace SQLiteTest.Models
                 .HasForeignKey(x => x.WorkflowId)
                 .IsRequired();
 #endif
+
+            modelBuilder.Entity<TaskRelation>(r =>
+            {
+                r.HasKey(x => new { x.WorkflowId, x.PrevTaskSubId, x.NextTaskSubId });
+                r.HasIndex(x => new { x.WorkflowId, x.PrevTaskSubId, x.NextTaskSubId }).IsUnique();
+                r.HasOne(x => x.PrevTask).WithMany(x => x.NextTaskRelations)
+                    .HasForeignKey(x => new { x.WorkflowId, x.PrevTaskSubId });
+                r.HasOne(x => x.NextTask).WithMany(x => x.PrevTaskRelations)
+                    .HasForeignKey(x => new { x.WorkflowId, x.NextTaskSubId });
+            });
         }
     }
 }

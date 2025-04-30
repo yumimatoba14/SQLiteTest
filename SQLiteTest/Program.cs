@@ -20,6 +20,7 @@ namespace SQLiteTest
                         var task = new Task { SubId = i + 1, Workflow = workflow, Name = $"task{taskNo++}" };
                         db.Tasks.Add(task);
                     }
+                    ConnectTask(db, 1, 1, 2);
 
                     workflow = new Workflow { Id = 10, Name = "Workflow10" };
                     db.Workflows.Add(workflow);
@@ -28,6 +29,8 @@ namespace SQLiteTest
                         var task = new Task { SubId = i + 1, Workflow = workflow, Name = $"task{taskNo++}" };
                         db.Tasks.Add(task);
                     }
+                    ConnectTask(db, 10, 1, 3);
+                    ConnectTask(db, 10, 2, 3);
 
                     db.SaveChanges();
                     Console.WriteLine("Data has been added.");
@@ -70,6 +73,27 @@ namespace SQLiteTest
         private static void ShowTask(Task task)
         {
             Console.WriteLine("task: Workflow = {0}, SubId = {1}, Name = {2}", task.Workflow.Id, task.SubId, task.Name);
+            Console.WriteLine("  PrevTasks = [{0}]", string.Join(", ", task.PrevTaskRelations.Select(x => x.PrevTaskSubId).ToList()));
+            Console.WriteLine("  NextTasks = [{0}]", string.Join(", ", task.NextTaskRelations.Select(x => x.NextTaskSubId).ToList()));
+        }
+
+        private static TaskRelation ConnectTask(WfDbContext db, int workflowId, int prevTaskId, int nextTaskId)
+        {
+            var prevTask = db.Tasks.Find(workflowId, prevTaskId);
+            var nextTask = db.Tasks.Find(workflowId, nextTaskId);
+            if (prevTask == null)
+            {
+                throw new ArgumentException($"prevTaskId({prevTaskId}) is not found.");
+            }
+            if (nextTask == null)
+            {
+                throw new ArgumentException($"nextTaskId({nextTaskId}) is not found.");
+            }
+            var rel = new TaskRelation {
+                WorkflowId = workflowId, PrevTaskSubId = prevTaskId, NextTaskSubId = nextTaskId,
+                PrevTask = prevTask, NextTask = nextTask };
+            db.TaskRelations.Add(rel);
+            return rel;
         }
     }
 }
