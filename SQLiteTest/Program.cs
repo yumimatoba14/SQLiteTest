@@ -71,9 +71,13 @@ namespace SQLiteTest
                     throw new InvalidProgramException("Unexpected result");
                 }
                 var t = db.Tasks.Find(100, 1);
-                db.Remove(t);
+                DeleteTaskCascade(db, t);
                 db.SaveChanges();
 
+                foreach(var t2 in anotherWorkflow.Tasks.ToList())
+                {
+                    DeleteTaskCascade(db, t2);
+                }
                 db.Remove(anotherWorkflow);
                 db.SaveChanges();
             }
@@ -120,6 +124,20 @@ namespace SQLiteTest
                 PrevTask = prevTask, NextTask = nextTask };
             db.TaskRelations.Add(rel);
             return rel;
+        }
+
+        private static void DeleteTaskCascade(WfDbContext db, Task task)
+        {
+            foreach (var rel in task.PrevTaskRelations)
+            {
+                db.Remove(rel);
+            }
+            foreach (var rel in task.NextTaskRelations)
+            {
+                db.Remove(rel);
+            }
+            task.Workflow.Tasks.Remove(task);
+            db.Remove(task);
         }
     }
 }
