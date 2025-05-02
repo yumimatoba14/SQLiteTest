@@ -35,6 +35,20 @@ namespace SQLiteTest
                     db.SaveChanges();
                     Console.WriteLine("Data has been added.");
                 }
+
+                {
+                    int taskNo = 100;
+                    var anotherWorkflow = new Workflow { Id = 100, Name = "Workflow to be deleted" };
+                    db.Workflows.Add(anotherWorkflow);
+                    for (int i = 0; i < 3; ++i)
+                    {
+                        var task = new Task { SubId = i + 1, Workflow = anotherWorkflow, Name = $"task{taskNo++}" };
+                        db.Tasks.Add(task);
+                    }
+                    ConnectTask(db, 100, 1, 2);
+                    ConnectTask(db, 100, 2, 3);
+                    db.SaveChanges();
+                }
             }
             using (var db = new WfDbContext())
             {
@@ -50,6 +64,18 @@ namespace SQLiteTest
                     ShowTask(task);
                 }
                 ShowWorkflow(db, 1);
+
+                var anotherWorkflow = db.Workflows.Find(100);
+                if (anotherWorkflow == null)
+                {
+                    throw new InvalidProgramException("Unexpected result");
+                }
+                var t = db.Tasks.Find(100, 1);
+                db.Remove(t);
+                db.SaveChanges();
+
+                db.Remove(anotherWorkflow);
+                db.SaveChanges();
             }
         }
 
