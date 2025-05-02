@@ -91,13 +91,13 @@ namespace SQLiteTest.Migrations
                     b.HasOne("SQLiteTest.Models.Task", "NextTask")
                         .WithMany("PrevTaskRelations")
                         .HasForeignKey("WorkflowId", "NextTaskSubId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SQLiteTest.Models.Task", "PrevTask")
                         .WithMany("NextTaskRelations")
                         .HasForeignKey("WorkflowId", "PrevTaskSubId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -2,10 +2,14 @@
 
 namespace SQLiteTest.Migrations
 {
-    public partial class AddTaskRelation : Migration
+    public partial class AddTaskRelation2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropIndex(
+                name: "IX_Tasks_WorkflowId_SubId",
+                table: "Tasks");
+
             migrationBuilder.CreateTable(
                 name: "TaskRelations",
                 columns: table => new
@@ -22,14 +26,20 @@ namespace SQLiteTest.Migrations
                         columns: x => new { x.WorkflowId, x.NextTaskSubId },
                         principalTable: "Tasks",
                         principalColumns: new[] { "WorkflowId", "SubId" },
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TaskRelations_Tasks_WorkflowId_PrevTaskSubId",
                         columns: x => new { x.WorkflowId, x.PrevTaskSubId },
                         principalTable: "Tasks",
                         principalColumns: new[] { "WorkflowId", "SubId" },
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_WorkflowId_SubId",
+                table: "Tasks",
+                columns: new[] { "WorkflowId", "SubId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskRelations_WorkflowId_NextTaskSubId",
@@ -47,6 +57,15 @@ namespace SQLiteTest.Migrations
         {
             migrationBuilder.DropTable(
                 name: "TaskRelations");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Tasks_WorkflowId_SubId",
+                table: "Tasks");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_WorkflowId_SubId",
+                table: "Tasks",
+                columns: new[] { "WorkflowId", "SubId" });
         }
     }
 }

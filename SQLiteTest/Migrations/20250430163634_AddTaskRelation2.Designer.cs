@@ -8,8 +8,8 @@ using SQLiteTest.Models;
 namespace SQLiteTest.Migrations
 {
     [DbContext(typeof(WfDbContext))]
-    [Migration("20250430161145_AddUniqunessToTaskKey")]
-    partial class AddUniqunessToTaskKey
+    [Migration("20250430163634_AddTaskRelation2")]
+    partial class AddTaskRelation2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,13 +93,13 @@ namespace SQLiteTest.Migrations
                     b.HasOne("SQLiteTest.Models.Task", "NextTask")
                         .WithMany("PrevTaskRelations")
                         .HasForeignKey("WorkflowId", "NextTaskSubId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SQLiteTest.Models.Task", "PrevTask")
                         .WithMany("NextTaskRelations")
                         .HasForeignKey("WorkflowId", "PrevTaskSubId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

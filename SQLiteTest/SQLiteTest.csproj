@@ -167,13 +167,9 @@
     <Compile Include="Migrations\20250428110355_AddTask.designer.cs">
       <DependentUpon>20250428110355_AddTask.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20250430080232_AddTaskRelation.cs" />
-    <Compile Include="Migrations\20250430080232_AddTaskRelation.designer.cs">
-      <DependentUpon>20250430080232_AddTaskRelation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20250430161145_AddUniqunessToTaskKey.cs" />
-    <Compile Include="Migrations\20250430161145_AddUniqunessToTaskKey.designer.cs">
-      <DependentUpon>20250430161145_AddUniqunessToTaskKey.cs</DependentUpon>
+    <Compile Include="Migrations\20250430163634_AddTaskRelation2.cs" />
+    <Compile Include="Migrations\20250430163634_AddTaskRelation2.designer.cs">
+      <DependentUpon>20250430163634_AddTaskRelation2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\WfDbContextModelSnapshot.cs" />
     <Compile Include="Models\Task.cs" />

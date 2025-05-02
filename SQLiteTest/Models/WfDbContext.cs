@@ -51,9 +51,11 @@ namespace SQLiteTest.Models
                 r.HasKey(x => new { x.WorkflowId, x.PrevTaskSubId, x.NextTaskSubId });
                 r.HasIndex(x => new { x.WorkflowId, x.PrevTaskSubId, x.NextTaskSubId }).IsUnique();
                 r.HasOne(x => x.PrevTask).WithMany(x => x.NextTaskRelations)
-                    .HasForeignKey(x => new { x.WorkflowId, x.PrevTaskSubId });
+                    .HasForeignKey(x => new { x.WorkflowId, x.PrevTaskSubId })
+                    .OnDelete(DeleteBehavior.Restrict);
                 r.HasOne(x => x.NextTask).WithMany(x => x.PrevTaskRelations)
-                    .HasForeignKey(x => new { x.WorkflowId, x.NextTaskSubId });
+                    .HasForeignKey(x => new { x.WorkflowId, x.NextTaskSubId })
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
