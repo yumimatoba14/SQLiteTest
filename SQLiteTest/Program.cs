@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SQLiteTest.Models;
 
 namespace SQLiteTest
@@ -10,6 +11,7 @@ namespace SQLiteTest
         {
             using (var db = new WfDbContext())
             {
+                db.Database.Migrate();
                 if (db.Workflows.Count() == 0)
                 {
                     int taskNo = 0;
