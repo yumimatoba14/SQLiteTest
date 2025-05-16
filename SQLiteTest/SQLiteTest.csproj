@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props')" />
+  <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\buildTransitive\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\buildTransitive\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -191,9 +192,4 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props'))" />
   </Target>
-  <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\runtimes\win-x86" ".\runtimes\win-x86\"  /D /S /E
-xcopy "$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\runtimes\win-x64" ".\runtimes\win-x64"\  /D /S /E
-xcopy "$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\runtimes\win-arm" ".\runtimes\win-arm\"  /D /S /E</PostBuildEvent>
-  </PropertyGroup>
 </Project>
